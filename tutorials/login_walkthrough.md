@@ -8,7 +8,8 @@
 - [Essentials](#essentials)
     - [Step 1: Setting Up the Initial Login Screen](#step-1-setting-up-the-initial-login-screen)
     - [Step 2: Creating the Page Structure](#step-2-creating-the-page-structure)
-
+    - [Step 3: Adding the App Logo](#step-3-adding-the-app-logo)
+      
 ---
 
 # Essentials
@@ -139,5 +140,67 @@ The `Scaffold` widget serves as the backbone of most Flutter pages, providing a 
 
     Widget loginCard() {
         // To be filled in step 4
+    }
+    ```
+
+## Step 3: Adding the App Logo
+
+<p>
+  <strong>Logo:</strong>
+  <img src="../assets/logo.png" alt="Project Logo" width="150">
+</p>
+
+### Concept in Flutter:
+In Flutter, images are added using the `Image` widget. To use local images, you must first add them to the project’s assets folder and declare them in the `pubspec.yaml` file under the `flutter > assets` section. This ensures Flutter knows where to find the image. The `pubspec.yaml` file is a crucial configuration file in Flutter projects that defines various project dependencies, metadata, and assets. It's similar to `package.json` in Node.js or `pom.xml` in Maven projects. This file helps Flutter manage:
+
+  - Project dependencies and versions
+  - Project metadata (name, description, version)
+  - Flutter-specific configurations
+  - Asset declarations (images, fonts, etc.)
+
+After adding assets to `pubspec.yaml`, simply save the file or run `flutter pub get` in the terminal to update the project configuration.
+
+The `Image.asset` widget is then used to display these assets in your UI.
+
+### Tasks:
+1. Create an `assets` folder in your project’s root directory and place the logo image in the `assets` folder.
+
+![step3](../assets/tutorial_login/step3.png)
+
+2. Update the `pubspec.yaml` file by specifying the image path under `flutter > assets`. If you look at your `pubspec.yaml` file, usually in line number 61-64, you'll find a commented section that shows where to add assets. By default, it looks like this:
+
+    ```yaml
+    # The following section is specific to Flutter packages.
+    flutter:
+        # The following line ensures that the Material Icons font is
+        # included with your application, so that you can use the icons in
+        # the material Icons class.
+        uses-material-design: true
+
+        # To add assets to your application, add an assets section, like this:
+        # assets:
+        #   - images/a_dot_burr.jpeg
+        #   - images/a_dot_ham.jpeg
+
+        # An image asset can refer to one or more resolution-specific "variants", see
+        # https://flutter.dev/assets-and-images/#resolution-aware
+
+        # For details regarding adding assets from package dependencies, see
+        # https://flutter.dev/assets-and-images/#from-packages
+    ```
+
+    Remove the comment (#) and add your asset path under `assets:`. You can add multiple assets by adding more lines with a dash (-) prefix. The final result should look like this:
+
+    ```yaml
+    flutter:
+      assets:
+        - assets/logo.png
+    ```
+
+3. Back to your function in the `login.dart`, use the `Image.asset` widget to display the logo at the top of the login page, and use properties like `width` to customize the visualization.
+   
+    ```dart
+    Widget logoImage() {
+        return Image.asset('/logo.png', width: 50);
     }
     ```
