@@ -9,7 +9,11 @@
     - [Step 1: Setting Up the Initial Login Screen](#step-1-setting-up-the-initial-login-screen)
     - [Step 2: Creating the Page Structure](#step-2-creating-the-page-structure)
     - [Step 3: Adding the App Logo](#step-3-adding-the-app-logo)
-      
+    - [Step 4: Designing the Login Card](#step-4-designing-the-login-card)
+    - [Step 5: Adding Welcome Text](#step-5-adding-welcome-text)
+    - [Step 6: Creating Input Fields](#step-6-creating-input-fields)
+    - [Step 7: Implementing the Login Button](#step-7-implementing-the-login-button)
+    - [Step 8: Adding Login Logic](#step-8-adding-login-logic)
 ---
 
 # Essentials
@@ -204,3 +208,283 @@ The `Image.asset` widget is then used to display these assets in your UI.
         return Image.asset('/logo.png', width: 50);
     }
     ```
+
+## Step 4: Designing the Login Card
+
+<img src="../assets/tutorial_login/step4.png" alt="step4" height="300">
+
+### Concept in Flutter:
+The `Card` widget provides a material design card-like container with elevation and rounded corners. Inside the card, you can use a `Container` widget to manage padding, alignment, and sizing. Using a `Column` widget inside the card allows you to stack and organize the form elements (like text inputs and buttons).
+
+### Tasks:
+1. Add a `Card` widget to the page to contain the login form.
+2. Use a `Container` widget with padding (`EdgeInsets`) to space the card’s content.
+3. Use a `Column` widget inside the card to stack the form elements vertically.
+4. Separate each section of the form (e.g., welcome text, input fields) into its own function for modularity. add them after `loginCard` function
+
+    ```dart
+    Widget loginCard() {
+        return Card(
+            color: Colors.white,
+            elevation: 3, // shadow depth
+            child: Container(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                        welcomeTexts(),
+                        const SizedBox(height: 40),
+                        textFields(),
+                        const SizedBox(height: 40),
+                        loginButton(),
+                    ],
+                ),
+            ),
+        );
+    }
+
+    Widget welcomeTexts() {
+        // To be filled in step 5
+    }
+
+    Widget textFields() {
+        // To be filled in step 6
+    }
+
+    Widget loginButton() {
+        // To be filled in step 7
+    }
+    ```
+
+## Step 5: Adding Welcome Text
+
+![step5](../assets/tutorial_login/step5.png)
+
+### Concept in Flutter:
+The `Text` widget is used to display text in Flutter. By using `Column`, you can stack multiple text widgets vertically. Styling is achieved using the `TextStyle` property, which allows you to define font size, weight, color, and more.
+
+### Tasks:
+1. Add a `Column` inside the login card for text elements.
+2. Create two `Text` widgets:
+     - A bold, larger font for the main welcome message (e.g., "Welcome Back").
+     - A smaller, regular font for instructional text (e.g., "Sign in to access your account").
+3. Use the `TextStyle` property to style the text, making it visually distinct and engaging.
+
+    ```dart
+    Widget welcomeTexts() {
+        return Column(
+            children: [
+                Text(
+                    'Welcome Back',
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                    'Sign in to access your account',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                ),
+            ],
+        );
+    }
+    ```
+
+## Step 6: Creating Input Fields
+
+![step6](../assets/tutorial_login/step6.png)
+
+### Concept in Flutter:
+The `TextField` widget is used for user input. Visualization of it can be customized with the `InputDecoration` property to add labels, placeholders, and styling. For organizing multiple input fields, use a `Column` widget to stack them.
+
+### Tasks:
+1. Use a `Column` to organize two `TextField` widgets—one for the email and one for the password.
+   - Apply `InputDecoration` to property `decoration` of `Textfield`, to add labels and a light background color for the input fields.
+     - `labelText` is the label text for the input field, which will be displayed as a placeholder when the field is empty.
+     - `filled` Indicates that the input field should be filled with `fillColor` background color.
+  
+   - Use `obscureText: true` for the password field to hide input characters.
+
+    ```dart
+    Widget textFields() {
+        return Column(
+            children: [
+                // Email
+                TextField(
+                    decoration: InputDecoration(
+                        labelText: "Email",
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        ),
+                ),
+                const SizedBox(height: 15),
+                // Password
+                TextField(
+                    decoration: InputDecoration(
+                        labelText: "Password",
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        ),
+                    obscureText: true,
+                ),
+            ],
+        );
+    }
+    ```
+
+2. The width of the `TextField` widget is equal to the width of its parent widget. To fix its width on the screen, set the desired width for the parent `Container` in the `loginCard`. Your `loginCard` should look like this now:
+    ```dart
+    Widget loginCard() {
+        return Card(
+            color: Colors.white,
+            elevation: 3,
+            child: Container(
+                width: 400, // <-- add this line to specify width of Container
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                        welcomeTexts(),
+                        const SizedBox(height: 40),
+                        textFields(),
+                        const SizedBox(height: 40),
+                        loginButton(),
+                    ],
+                ),
+            ),
+        );
+    }
+    ```
+
+## Step 7: Implementing the Login Button
+
+![step7](../assets/tutorial_login/step7.png)
+
+### Concept in Flutter:
+The `ElevatedButton` widget is used for clickable buttons. Customizing buttons involves using the `style` property, where you can define attributes like color and size. To make the button full-width, wrap it in a `Container` and set its width.
+
+### Tasks:
+1. Add an `ElevatedButton` widget for the login action.
+2. Use the `style` property to customize the button’s appearance (e.g., background color, text style).
+    - To use custom Color, we can use the format `0xff`+`hexcode`. hex code of the color must be without `#`.
+3. Add a child, which is a `Text` that display the button title.
+4. Wrap the button in a `Container`. Use `double.infinity` to set its width to  highest possible width, which is the `loginCard`.
+5. `onPressed` is used for the button for functionality when it is clicked. we will fill this in step 8 with our logics.
+
+```dart
+Widget loginButton() {
+    return Container(
+        height: 40,
+        width: double.infinity,
+        child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xff0553B1),
+            ),
+            onPressed: () {
+                // to be filled with login logic here in step 8
+            },
+            child: Text('Login', style: TextStyle(color: Colors.white)),
+        ),
+    );
+}
+```
+
+## Step 8: Adding Login Logic
+
+### Concept in Flutter:
+The `TextEditingController` is used to retrieve and manage text input from `TextField` widgets. You can add logic to validate user input, and provide feedback using the `SnackBar` widget. Navigation between pages is achieved using `Navigator.push`.
+
+### Tasks:
+1. Create `TextEditingController` instances for the email and password fields, before the build function, just after line `class _LoginPageState extends State<LoginPage> {`.
+    ```dart
+    // Controllers
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    ```
+- A good practice is to dispose the controllers for memory management.
+  
+2. Attach the controllers to their respective `TextField` widgets.
+    ```dart
+    Widget textFields() {
+        return Column(
+            children: [
+                //Email
+                TextField(
+                    controller: emailController, // <-- adding the controller
+                    decoration: InputDecoration(
+                        labelText: "Email",
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                    ),
+                ),
+                const SizedBox(height: 15),
+                //Password
+                TextField(
+                    controller: passwordController, // <-- adding the controller
+                    decoration: InputDecoration(
+                        labelText: "Password",
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                    ),
+                    obscureText: true,
+                ),
+            ],
+        );
+    }
+    ```
+3. To go new page after succesfull login, create a new file `dashboard.dart` in the `lib` folder and create a `StatefulWidget` named `DashboardScreen` just like creating login page.
+    
+    | ![step8-1](../assets/tutorial_login/step8-1.png) | ➡️ | ![step8-2](../assets/tutorial_login/step8-2.png) |
+    |--------------------------------|---|--------------------------------|
+
+    ```dart
+    import 'package:flutter/material.dart';
+
+    class DashboardPage extends StatefulWidget {
+        const DashboardPage({super.key});
+
+        @override
+        State<DashboardPage> createState() => _DashboardPageState();
+    }
+
+    class _DashboardPageState extends State<DashboardPage> {
+        @override
+        Widget build(BuildContext context) {
+            return const Placeholder();
+        }
+    }
+    ```
+4. Implement validation logic to check user input.
+   - Dart language is similar to C++/Java for conditional statements. Use simple `if else` to achieve comparison
+   - Use a `SnackBar` to display feedback (e.g., "Login Successful" or "Login Failed").
+   - Navigate to a new Dashboard page upon successful login.
+
+    ```dart
+    void loginLogic() {
+
+        if (emailController.text == 'admin' && passwordController.text == 'root') {
+            // Succesfful Feedback
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text('Login Successful!'),
+                    backgroundColor: Colors.green,
+                ),
+            );
+            // Navigate to the Dashboard Page
+            Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const DashboardPage()),
+            );
+
+        } else {
+            // Failed Feedback
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text('Login Failed!'),
+                    backgroundColor: Colors.red,
+                ),
+            );
+        }
+    }
+    ```
+---
