@@ -7,6 +7,7 @@
 ## Table of Contents
 - [Essentials](#essentials)
     - [Step 1: Setting Up the Initial Login Screen](#step-1-setting-up-the-initial-login-screen)
+    - [Step 2: Creating the Page Structure](#step-2-creating-the-page-structure)
 
 ---
 
@@ -74,5 +75,69 @@ Every Flutter app begins with the `main.dart` file, which acts as the entry poin
                 home: LoginPage(),
             );
         }
+    }
+    ```
+
+## Step 2: Creating the Page Structure
+
+![Login Layout](../assets/tutorial_login/step2.png)
+
+### Concept in Flutter:
+The `Scaffold` widget serves as the backbone of most Flutter pages, providing a consistent layout structure. It contains properties like `body`, `appBar`, and `floatingActionButton`, which are used to organize content. For aligning elements, Flutter provides layout widgets like `Center`, which centers child widgets, and `Column`, which stacks child widgets vertically. Using these, we can create a foundation for our login page.
+
+### Tasks:
+1. Use a `Scaffold` widget to provide the base layout for the page.
+2. Add a `Center` widget to align content in the middle of the screen.
+3. Use a `Column` widget inside the `Center` to arrange the page elements vertically (e.g., logo, form).
+- Use `mainAxisAlignment` to align the children of Column widget along the main axis (vertical) to be centered, and `crossAxisAlignment` to center align the children horizontally
+
+   ```dart
+    @override
+    Widget build(BuildContext context) {
+        return Scaffold(
+            body: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center, 
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                        // form widget to be put here
+                    ],
+                ),
+            ),
+        );
+    }
+    ```
+
+4. Separate sections of the login page (e.g., logo, login form) into individual functions for better code organization. each function is placed after the build function and called within the column.
+   
+- Use `SizedBox` widget for spacing purpose.
+
+    ```dart
+    @override
+    Widget build(BuildContext context) {
+        return Scaffold(
+            body: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                        // Logo
+                        logoImage(),
+                        // Space
+                        const SizedBox(height: 20),
+                        // Login form Card
+                        loginCard(),
+                    ],
+                ),
+            ),
+        );
+    }
+
+    Widget logoImage() {
+        // To be filled in step 3
+    }
+
+    Widget loginCard() {
+        // To be filled in step 4
     }
     ```
