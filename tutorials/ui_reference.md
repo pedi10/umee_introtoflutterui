@@ -327,7 +327,7 @@ MaterialApp(
 
 ### Scaffold
 
-<img src="../assets/ui_reference/scaffold2.png" alt="Scaffold">
+<img src="../assets/ui_reference/scaffold.png" alt="Scaffold">
 
 - **Introduction**: Implements the basic material design visual layout structure. Provides a framework for implementing the basic material design layout of an application.
 - **Key Parameters**:
