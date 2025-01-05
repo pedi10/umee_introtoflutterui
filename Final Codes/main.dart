@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DashboardPage(),
+      home: LoginPage(),
+      //home: DashboardPage(), //if you wish to run dashboard directly without login
     );
   }
 }
