@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'dashboard.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -207,11 +206,11 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Colors.green,
         ),
       );
-      // Navigate to the Dashboard Page
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const DashboardPage()),
-      );
+      // // Navigate to the Dashboard Page
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => const DashboardPage()),
+      // );
     } else {
       // Failed Feedback
       ScaffoldMessenger.of(context).showSnackBar(
